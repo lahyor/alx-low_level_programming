@@ -3,9 +3,9 @@
 
 /**
  * struct dog - The attributes of a dog
- * @name: the dog's name
- * @age: The dog's age
- * @owner: The dog's owner
+ * @name: the dog name
+ * @age: The dog age
+ * @owner: The dog owner
  * Description: The attributes of a dog
  */
 
@@ -17,9 +17,8 @@ struct dog
 };
 
 /**
- * dog_t - Typedef for the dog structures
+ * dog_t - Typedef for the dog structure
  */
-
 typedef struct dog dog_t;
 
 void init_dog(struct dog *d, char *name, float age, char *owner);
