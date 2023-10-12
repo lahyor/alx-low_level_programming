@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-	int bytes, int index;
+	int bytes, index;
 	int (*addr)(int, char **) = main;
 	unsigned char opcode;
 
