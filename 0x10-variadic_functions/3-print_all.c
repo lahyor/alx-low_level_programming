@@ -11,7 +11,7 @@
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	f_dt fom_types[] = {
+	f_dt form_types[] = {
 		{ "c", print_char },
 		{ "i", print_integer },
 		{ "f", print_float },
@@ -29,9 +29,9 @@ void print_all(const char * const format, ...)
 
 		while (y < 4)
 		{
-			if (format[x] == *fom_types[y].identifier)
+			if (format[x] == *form_types[y].identifier)
 			{
-				fom_types[y].f(seperator, args);
+				form_types[y].f(seperator, args);
 				seperator = ", ";
 			}
 			y++;
@@ -75,7 +75,7 @@ void print_integer(char *seperator, va_list args)
 
 void print_float(char *seperator, va_list args)
 {
-	printf("%s%f", seperator, va_arg(args, int));
+	printf("%s%f", seperator, va_arg(args, double));
 }
 
 /**
