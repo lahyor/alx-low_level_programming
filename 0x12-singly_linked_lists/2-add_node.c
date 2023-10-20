@@ -11,7 +11,7 @@
 
 list_t *add_node(list_t **head, const char *str)
 {
-	list_t menu;
+	list_t *menu;
 
 	if (head != NULL && str != NULL)
 	{
