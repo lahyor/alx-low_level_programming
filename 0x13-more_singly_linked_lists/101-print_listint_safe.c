@@ -1,6 +1,6 @@
-#include "lists.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "lists.h"
 
 /**
  * print_listint_safe - Prints a listint_t list safely.
