@@ -3,51 +3,53 @@
 #include "lists.h"
 
 /**
- * print_listint_safe - Prints a listint_t list safely.
- * @head: head of the linked list
- * Return: The number of nodes in the list.
+ * find_listint_loop - finds a loop in a linked list
+ * @head: linked list to search
+ * Return: address of node where loop starts/returns, NULL if no loop
+ */
+
+listint_t *find_listint_loop(listint_t *head)
+{
+	listint_t *ptr, *end;
+
+	if (head == NULL)
+		return (NULL);
+
+	for (end = head->next; end != NULL; end = end->next)
+	{
+		if (end == end->next)
+			return (end);
+		for (ptr = head; ptr != end; ptr = ptr->next)
+			if (ptr == end->next)
+				return (end->next);
+	}
+	return (NULL);
+}
+
+/**
+ * print_listint_safe - prints a linked list, even if it
+ * has a loop
+ * @head: head of list to print
+ * Return: number of nodes printed
  */
 
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *love = head, *hate = head;
-	size_t mend = 0;
-	int un_loop = 0;
+	size_t len = 0;
+	int loop;
+	listint_t *loopnode;
 
-	while (love && hate && hate->next)
+	loopnode = find_listint_loop_pl((listint_t *) head);
+
+	for (len = 0, loop = 1; (head != loopnode || loop) && head != NULL; len++)
 	{
-		if (!(hate->next->next))
-			break;
-		love = love->next;
-		hate = hate->next->next;
-		if (love == hate)
-		{
-			love = love->next;
-			un_loop = 1;
-			break;
-		}
-	}
-	if (!un_loop)
-	{
-		while (head)
-		{
-			mend++;
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
-		}
-		return (mend);
-	}
-	while (head)
-	{
-		mend++;
-		if (head == love)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			printf("-> [%p] %d\n", (void *)head, head->next->n);
-			exit(98);
-		}
-		printf("[%p] %d\n", (void *)head, head->n);
+		printf("[%p] %d\n", (void *) head, head->n);
+		if (head == loopnode)
+			loop = 0;
 		head = head->next;
 	}
-	return (0);
+
+	if (loopnode != NULL)
+		printf("-> [%p] %d\n", (void *) head, head->n);
+	return (len);
 }
