@@ -10,34 +10,27 @@
 int create_file(const char *filename, char *text_content)
 {
 	int fd;
+	int rletters;
+	int rwrite;
 
 	if (filename == NULL)
 		return (-1);
 
-	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 
 	if (fd == -1)
 		return (-1);
 
-	if (text_content)
-		write = (fd, text_content, _strlen(text_content));
+	if (text_content == NULL)
+		text_content = "";
+
+	for (rletters = 0; text_content[rletters]; rletters++)
+		;
+	rwrite = write(fd, text_content, rletters);
+
+	if (rwrite == -1)
+		return (-1);
 
 	close(fd);
 	return (1);
-}
-
-/**
- * _strlen - length of string
- * @s: counted string
- * Return: string length
- */
-
-int _strlen(char *s)
-{
-	int c = 0;
-
-	while (s[c])
-		c++;
-
-	return (c);
 }
